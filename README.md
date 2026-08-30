@@ -200,6 +200,61 @@ az container list --resource-group rm564099-cp4-rg --output table
 az acr repository list --name rm564099acr --output table
 ```
 
+### How To — build e push das imagens
+
+Comandos equivalentes com Docker, para quem tiver o Docker instalado na máquina.
+
+**1. Build local das duas imagens**
+
+```bash
+docker build -t rm564099-app:latest ./app
+docker build -t rm564099-db:latest  ./db
+```
+
+**2. Teste local antes de subir**
+
+```bash
+# sobe app + banco juntos e confere em http://localhost:8080
+docker compose up --build
+
+# conferindo que o container do app NÃO roda como root
+docker run --rm rm564099-app:latest id     # esperado: uid=1001(petcare)
+```
+
+**3. Login no registro**
+
+```bash
+az acr login --name rm564099acr
+```
+
+**4. Tag apontando para o ACR**
+
+```bash
+docker tag rm564099-app:latest rm564099acr.azurecr.io/rm564099-app:latest
+docker tag rm564099-db:latest  rm564099acr.azurecr.io/rm564099-db:latest
+```
+
+**5. Push para o ACR**
+
+```bash
+docker push rm564099acr.azurecr.io/rm564099-app:latest
+docker push rm564099acr.azurecr.io/rm564099-db:latest
+```
+
+**6. Conferindo o que subiu**
+
+```bash
+az acr repository list --name rm564099acr --output table
+az acr repository show-tags --name rm564099acr --repository rm564099-app --output table
+az acr repository show-tags --name rm564099acr --repository rm564099-db  --output table
+```
+
+> **Como este projeto foi construído de fato:** a máquina usada não tem Docker
+> instalado, então os passos 1 a 5 foram executados dentro da própria Azure pelo
+> script [`scripts/04-build-imagens-kaniko.ps1`](scripts/04-build-imagens-kaniko.ps1),
+> que usa o kaniko em um container efêmero no ACI. O resultado é o mesmo — as
+> duas imagens no ACR — e o motivo está descrito em *Decisões técnicas*, abaixo.
+
 ### Limpeza — só depois de gravar o vídeo
 
 ```powershell
