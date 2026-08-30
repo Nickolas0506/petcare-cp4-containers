@@ -12,8 +12,8 @@
 if ($env:RM) { $RM = $env:RM } else { $RM = "rm564099" }
 
 # A assinatura Azure for Students nao libera todas as regioes (brazilsouth,
-# por exemplo, costuma recusar). mexicocentral funciona e fica perto.
-if ($env:LOCATION) { $LOCATION = $env:LOCATION } else { $LOCATION = "mexicocentral" }
+# por exemplo, costuma recusar). brazilsouth funciona e fica perto.
+if ($env:LOCATION) { $LOCATION = $env:LOCATION } else { $LOCATION = "brazilsouth" }
 
 # ---- Recursos na Azure ------------------------------------------------------
 $RESOURCE_GROUP = "$RM-cp4-rg"

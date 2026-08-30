@@ -217,8 +217,12 @@ código para um File Share e rodar o kaniko em um container efêmero no ACI, que
 constrói a imagem e faz o push direto para o ACR. O script `04` faz isso e
 apaga o container de build no final.
 
-**Por que `mexicocentral`.** A Azure for Students recusa várias regiões para
-ACI, incluindo `brazilsouth`. `mexicocentral` aceita e é a mais próxima.
+**Por que `brazilsouth`.** A assinatura Azure for Students aplica a política
+*Allowed resource deployment regions*, que restringe onde os recursos podem ser
+criados. Nesta assinatura a lista liberada é `canadacentral`, `chilecentral`,
+`eastus2`, `brazilsouth` e `centralus` — tentar qualquer outra região devolve
+`RequestDisallowedByAzure`. Entre as permitidas, `brazilsouth` é a mais próxima
+e tem suporte a Container Instances, então foi a escolhida.
 
 **Segurança.** O container da aplicação roda com o usuário `petcare` (uid 1001),
 sem privilégio administrativo — dá para conferir com

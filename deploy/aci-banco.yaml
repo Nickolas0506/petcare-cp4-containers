@@ -9,7 +9,7 @@
 #   az container create --resource-group rm564099-cp4-rg --file deploy/aci-banco.yaml
 # =============================================================================
 apiVersion: 2021-10-01
-location: mexicocentral
+location: brazilsouth
 name: rm564099-db
 type: Microsoft.ContainerInstance/containerGroups
 

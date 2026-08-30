@@ -8,7 +8,7 @@
 #   az container create --resource-group rm564099-cp4-rg --file deploy/aci-aplicacao.yaml
 # =============================================================================
 apiVersion: 2021-10-01
-location: mexicocentral
+location: brazilsouth
 name: rm564099-app
 type: Microsoft.ContainerInstance/containerGroups
 
@@ -34,7 +34,7 @@ properties:
             protocol: TCP
         environmentVariables:
           - name: DB_HOST
-            value: rm564099-db.mexicocentral.azurecontainer.io
+            value: rm564099-db.brazilsouth.azurecontainer.io
           - name: DB_PORT
             value: "3306"
           - name: DB_NAME
