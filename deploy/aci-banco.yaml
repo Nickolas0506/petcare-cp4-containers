@@ -6,11 +6,11 @@
 # armazenamento nunca ficam escritas no repositorio.
 #
 # Para aplicar por aqui em vez do script:
-#   az container create --resource-group rm564105-cp4-rg --file deploy/aci-banco.yaml
+#   az container create --resource-group rm564099-cp4-rg --file deploy/aci-banco.yaml
 # =============================================================================
 apiVersion: 2021-10-01
 location: mexicocentral
-name: rm564105-db
+name: rm564099-db
 type: Microsoft.ContainerInstance/containerGroups
 
 properties:
@@ -18,14 +18,14 @@ properties:
   restartPolicy: OnFailure
 
   imageRegistryCredentials:
-    - server: rm564105acr.azurecr.io
-      username: rm564105acr
+    - server: rm564099acr.azurecr.io
+      username: rm564099acr
       password: <SENHA_DO_ACR>
 
   containers:
-    - name: rm564105-db
+    - name: rm564099-db
       properties:
-        image: rm564105acr.azurecr.io/rm564105-db:latest
+        image: rm564099acr.azurecr.io/rm564099-db:latest
         resources:
           requests:
             cpu: 1
@@ -50,12 +50,12 @@ properties:
     - name: dados-mysql
       azureFile:
         shareName: petcare-dados
-        storageAccountName: rm564105storage
+        storageAccountName: rm564099storage
         storageAccountKey: <CHAVE_DO_STORAGE>
 
   ipAddress:
     type: Public
-    dnsNameLabel: rm564105-db
+    dnsNameLabel: rm564099-db
     ports:
       - port: 3306
         protocol: TCP

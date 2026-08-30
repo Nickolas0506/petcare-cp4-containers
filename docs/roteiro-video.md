@@ -15,26 +15,26 @@
 ## 2. Recursos criados na Azure (~1min30) — **comece por aqui**
 
 É exigência do enunciado abrir mostrando o que foi provisionado. No Portal Azure,
-dentro do grupo `rm564105-cp4-rg`, mostre item por item:
+dentro do grupo `rm564099-cp4-rg`, mostre item por item:
 
-- Container Registry `rm564105acr`
-- Storage Account `rm564105storage` → File Shares → `petcare-dados`
-- Container Instance `rm564105-app`
-- Container Instance `rm564105-db`
+- Container Registry `rm564099acr`
+- Storage Account `rm564099storage` → File Shares → `petcare-dados`
+- Container Instance `rm564099-app`
+- Container Instance `rm564099-db`
 
 Complemente no terminal:
 
 ```powershell
-az resource list  --resource-group rm564105-cp4-rg --output table
-az container list --resource-group rm564105-cp4-rg --output table
+az resource list  --resource-group rm564099-cp4-rg --output table
+az container list --resource-group rm564099-cp4-rg --output table
 ```
 
 ## 3. Imagens no ACR (~1min)
 
 ```powershell
-az acr repository list --name rm564105acr --output table
-az acr repository show-tags --name rm564105acr --repository rm564105-app --output table
-az acr repository show-tags --name rm564105acr --repository rm564105-db  --output table
+az acr repository list --name rm564099acr --output table
+az acr repository show-tags --name rm564099acr --repository rm564099-app --output table
+az acr repository show-tags --name rm564099acr --repository rm564099-db  --output table
 ```
 
 Aponte que **o RM é o prefixo das duas imagens**, como o CP exige.
@@ -45,7 +45,7 @@ Aponte que **o RM é o prefixo das duas imagens**, como o CP exige.
   primeiro, a imagem final leva apenas o JRE e o JAR) e a linha `USER petcare`.
 - Prove em execução que não é root:
   ```powershell
-  az container exec -g rm564105-cp4-rg -n rm564105-app --exec-command "id"
+  az container exec -g rm564099-cp4-rg -n rm564099-app --exec-command "id"
   ```
   A saída tem que mostrar `uid=1001(petcare)` — e não `uid=0(root)`.
 - Abra `db/Dockerfile` e mostre o `01-ddl.sql` sendo copiado para
@@ -115,7 +115,7 @@ Prove que o dado não vive dentro do container:
 
 ```powershell
 # cadastre um registro pela API, depois reinicie o banco
-az container restart --resource-group rm564105-cp4-rg --name rm564105-db
+az container restart --resource-group rm564099-cp4-rg --name rm564099-db
 ```
 
 Espere subir, consulte de novo e mostre que o registro continua lá — os dados

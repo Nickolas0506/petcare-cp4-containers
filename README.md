@@ -14,8 +14,8 @@ Registry (ACR)** e são executadas em **Azure Container Instances (ACI)**.
 
 | Camada | Tecnologia | Imagem | Container |
 |---|---|---|---|
-| Aplicação | Java 21 · Spring Boot 3.3 | `rm564105-app:latest` | `rm564105-app` |
-| Banco | MySQL 8 | `rm564105-db:latest` | `rm564105-db` |
+| Aplicação | Java 21 · Spring Boot 3.3 | `rm564099-app:latest` | `rm564099-app` |
+| Banco | MySQL 8 | `rm564099-db:latest` | `rm564099-db` |
 
 Os dados do MySQL ficam em um **Azure File Share**, montado em `/var/lib/mysql`.
 É isso que faz o banco sobreviver à recriação do container.
@@ -23,22 +23,22 @@ Os dados do MySQL ficam em um **Azure File Share**, montado em `/var/lib/mysql`.
 ### Como as peças se conectam
 
 ```
-   máquina local                       Azure — grupo rm564105-cp4-rg
+   máquina local                       Azure — grupo rm564099-cp4-rg
  +----------------+
  | código-fonte   |                 +--------------------------------------+
- | Dockerfiles    |   contexto      |   ACR  rm564105acr                   |
- | scripts CLI    | --------------> |   +-- rm564105-app:latest            |
- +--------+-------+   via kaniko    |   +-- rm564105-db:latest             |
+ | Dockerfiles    |   contexto      |   ACR  rm564099acr                   |
+ | scripts CLI    | --------------> |   +-- rm564099-app:latest            |
+ +--------+-------+   via kaniko    |   +-- rm564099-db:latest             |
           |                         +------------------+-------------------+
           |                                            | pull
           |                         +------------------v-------------------+
-          |                         |  ACI rm564105-app --> ACI rm564105-db|
+          |                         |  ACI rm564099-app --> ACI rm564099-db|
           |     Azure CLI           |  Spring Boot 8080      MySQL 3306    |
           +-----------------------> |  usuário não-root           |        |
                                     +-----------------------------+--------+
                                                                   | volume
                                                      +------------v-------------+
-                                                     | Storage rm564105storage  |
+                                                     | Storage rm564099storage  |
                                                      | share petcare-dados      |
                                                      +--------------------------+
 ```
@@ -195,9 +195,9 @@ $env:DB_PASSWORD = "SuaSenhaForte123!"
 Conferindo os recursos criados (útil para mostrar no vídeo):
 
 ```powershell
-az resource list  --resource-group rm564105-cp4-rg --output table
-az container list --resource-group rm564105-cp4-rg --output table
-az acr repository list --name rm564105acr --output table
+az resource list  --resource-group rm564099-cp4-rg --output table
+az container list --resource-group rm564099-cp4-rg --output table
+az acr repository list --name rm564099acr --output table
 ```
 
 ### Limpeza — só depois de gravar o vídeo
@@ -222,7 +222,7 @@ ACI, incluindo `brazilsouth`. `mexicocentral` aceita e é a mais próxima.
 
 **Segurança.** O container da aplicação roda com o usuário `petcare` (uid 1001),
 sem privilégio administrativo — dá para conferir com
-`az container exec -g rm564105-cp4-rg -n rm564105-app --exec-command "id"`.
+`az container exec -g rm564099-cp4-rg -n rm564099-app --exec-command "id"`.
 As senhas entram por `--secure-environment-variables`, que não aparecem no
 `az container show` nem no portal, e nenhuma credencial está versionada.
 

@@ -5,11 +5,11 @@
 # O DB_HOST e o nome DNS publico do container do banco.
 #
 # Para aplicar por aqui em vez do script:
-#   az container create --resource-group rm564105-cp4-rg --file deploy/aci-aplicacao.yaml
+#   az container create --resource-group rm564099-cp4-rg --file deploy/aci-aplicacao.yaml
 # =============================================================================
 apiVersion: 2021-10-01
 location: mexicocentral
-name: rm564105-app
+name: rm564099-app
 type: Microsoft.ContainerInstance/containerGroups
 
 properties:
@@ -17,14 +17,14 @@ properties:
   restartPolicy: OnFailure
 
   imageRegistryCredentials:
-    - server: rm564105acr.azurecr.io
-      username: rm564105acr
+    - server: rm564099acr.azurecr.io
+      username: rm564099acr
       password: <SENHA_DO_ACR>
 
   containers:
-    - name: rm564105-app
+    - name: rm564099-app
       properties:
-        image: rm564105acr.azurecr.io/rm564105-app:latest
+        image: rm564099acr.azurecr.io/rm564099-app:latest
         resources:
           requests:
             cpu: 1
@@ -34,7 +34,7 @@ properties:
             protocol: TCP
         environmentVariables:
           - name: DB_HOST
-            value: rm564105-db.mexicocentral.azurecontainer.io
+            value: rm564099-db.mexicocentral.azurecontainer.io
           - name: DB_PORT
             value: "3306"
           - name: DB_NAME
@@ -46,7 +46,7 @@ properties:
 
   ipAddress:
     type: Public
-    dnsNameLabel: rm564105-app
+    dnsNameLabel: rm564099-app
     ports:
       - port: 8080
         protocol: TCP

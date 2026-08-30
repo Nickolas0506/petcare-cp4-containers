@@ -35,7 +35,7 @@
 <div class="noprint">
   <strong>Como gerar o PDF:</strong> abra este arquivo no navegador, pressione
   <strong>Ctrl+P</strong>, escolha <em>Salvar como PDF</em> e nomeie o arquivo como
-  <strong>PetCare_RM564105_container.pdf</strong>. Este aviso não sai na impressão.
+  <strong>PataCloud_container.pdf</strong>. Este aviso não sai na impressão.
   Substitua antes os campos em <span class="fill">vermelho</span>.
 </div>
 
@@ -45,20 +45,28 @@
   <div class="sub">DevOps Tools &amp; Cloud Computing · Projeto PetCare (ACR / ACI)</div>
 </header>
 
-<h2>Identificação</h2>
+<h2>Identificação do grupo</h2>
 <table>
+  <tr><th>Nome do grupo</th><td>PataCloud</td></tr>
   <tr><th>Projeto</th><td>PetCare — API de clínica veterinária containerizada</td></tr>
-  <tr><th>Aluno</th><td class="fill">&lt;NOME COMPLETO&gt;</td></tr>
-  <tr><th>RM</th><td>RM564105</td></tr>
+  <tr><th>Representante (responsável pelo envio)</th><td class="fill">Natalia &lt;SOBRENOME&gt; — RM564099</td></tr>
   <tr><th>Turma</th><td class="fill">&lt;TURMA&gt;</td></tr>
   <tr><th>Data de entrega</th><td>31/08/2026</td></tr>
+</table>
+
+<h2>Integrantes</h2>
+<table>
+  <tr><th>RM</th><td>Nome completo</td></tr>
+  <tr><td>RM564099</td><td class="fill">Natalia &lt;SOBRENOME&gt;</td></tr>
+  <tr><td class="fill">RM&lt;000000&gt;</td><td class="fill">&lt;NOME COMPLETO&gt;</td></tr>
+  <tr><td class="fill">RM&lt;000000&gt;</td><td class="fill">&lt;NOME COMPLETO&gt;</td></tr>
 </table>
 
 <h2>Links da entrega</h2>
 <table>
   <tr><th>Repositório GitHub</th><td class="fill">https://github.com/&lt;usuario&gt;/&lt;repositorio&gt;</td></tr>
   <tr><th>Vídeo de demonstração</th><td class="fill">https://youtu.be/&lt;id-do-video&gt;</td></tr>
-  <tr><th>Aplicação publicada (ACI)</th><td>http://rm564105-app.mexicocentral.azurecontainer.io:8080</td></tr>
+  <tr><th>Aplicação publicada (ACI)</th><td>http://rm564099-app.mexicocentral.azurecontainer.io:8080</td></tr>
 </table>
 
 <h2>Solução entregue</h2>
@@ -66,10 +74,10 @@
   <tr><th>Aplicação</th><td>Java 21 + Spring Boot 3.3 — API REST com CRUD completo</td></tr>
   <tr><th>Banco de dados</th><td>MySQL 8 (relacional, em container — não é H2)</td></tr>
   <tr><th>Tabelas</th><td><code>tb_tutor</code> e <code>tb_pet</code> (relacionamento 1:N por chave estrangeira)</td></tr>
-  <tr><th>Registro das imagens</th><td>Azure Container Registry — rm564105acr.azurecr.io</td></tr>
-  <tr><th>Imagens publicadas</th><td>rm564105-app:latest &nbsp;·&nbsp; rm564105-db:latest</td></tr>
-  <tr><th>Execução</th><td>Dois Azure Container Instances: rm564105-app e rm564105-db</td></tr>
-  <tr><th>Persistência</th><td>Conta de Armazenamento rm564105storage, File Share <code>petcare-dados</code> montado em <code>/var/lib/mysql</code></td></tr>
+  <tr><th>Registro das imagens</th><td>Azure Container Registry — rm564099acr.azurecr.io</td></tr>
+  <tr><th>Imagens publicadas</th><td>rm564099-app:latest &nbsp;·&nbsp; rm564099-db:latest</td></tr>
+  <tr><th>Execução</th><td>Dois Azure Container Instances: rm564099-app e rm564099-db</td></tr>
+  <tr><th>Persistência</th><td>Conta de Armazenamento rm564099storage, File Share <code>petcare-dados</code> montado em <code>/var/lib/mysql</code></td></tr>
   <tr><th>Provisionamento</th><td>100% via Azure CLI — scripts versionados em <code>scripts/</code></td></tr>
   <tr><th>Build das imagens</th><td>kaniko em container efêmero no ACI (ACR Tasks é bloqueado na assinatura Azure for Students)</td></tr>
   <tr><th>Segurança</th><td>O container da aplicação roda com o usuário <code>petcare</code> (uid 1001), sem privilégio administrativo. Credenciais injetadas via <code>--secure-environment-variables</code>; nenhuma senha no código-fonte.</td></tr>
@@ -89,5 +97,5 @@
 
 <footer>
   <span>PetCare — CP4 Imagem e Containers em Nuvem</span>
-  <span>RM564105</span>
+  <span>RM564099</span>
 </footer>

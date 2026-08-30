@@ -9,7 +9,7 @@
 # =============================================================================
 
 # ---- Identificacao ----------------------------------------------------------
-if ($env:RM) { $RM = $env:RM } else { $RM = "rm564105" }
+if ($env:RM) { $RM = $env:RM } else { $RM = "rm564099" }
 
 # A assinatura Azure for Students nao libera todas as regioes (brazilsouth,
 # por exemplo, costuma recusar). mexicocentral funciona e fica perto.
