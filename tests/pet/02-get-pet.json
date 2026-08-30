@@ -1,0 +1,9 @@
+{
+  "_operacao": "READ - GET /api/v1/pets  e  GET /api/v1/pets/{id}",
+  "_observacao": "GET nao tem corpo. Use o id devolvido pelo POST anterior.",
+  "_exemplos": [
+    "GET /api/v1/pets",
+    "GET /api/v1/pets/3"
+  ],
+  "_esperado": "HTTP 200 com a lista ou com o pet pedido"
+}

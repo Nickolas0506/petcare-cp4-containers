@@ -1,0 +1,49 @@
+# =============================================================================
+# PetCare - execucao local (app + banco), util para testar antes da nuvem
+#
+#   docker compose up --build
+#   painel:  http://localhost:8080
+#
+# Precisa de Docker instalado. Na nuvem quem faz esse papel sao os dois ACIs.
+# =============================================================================
+services:
+
+  banco:
+    build:
+      context: ./db
+    image: petcare-db:local
+    container_name: petcare-banco
+    environment:
+      MYSQL_DATABASE: petcare
+      MYSQL_USER: petcare_user
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-${DB_PASSWORD}}
+    ports:
+      - "3306:3306"
+    volumes:
+      - dados-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  aplicacao:
+    build:
+      context: ./app
+    image: petcare-app:local
+    container_name: petcare-aplicacao
+    depends_on:
+      banco:
+        condition: service_healthy
+    environment:
+      DB_HOST: banco
+      DB_PORT: 3306
+      DB_NAME: petcare
+      DB_USER: petcare_user
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "8080:8080"
+
+volumes:
+  dados-mysql:

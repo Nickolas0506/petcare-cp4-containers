@@ -1,0 +1,11 @@
+{
+  "_operacao": "UPDATE - PUT /api/v1/pets/{id}",
+  "_esperado": "HTTP 200 com os dados ja alterados (ganhou peso e foi castrado)",
+  "nome": "Nino",
+  "especie": "GATO",
+  "raca": "Persa",
+  "pesoKg": 6.05,
+  "dataNascimento": "2023-05-19",
+  "castrado": true,
+  "tutorId": 1
+}

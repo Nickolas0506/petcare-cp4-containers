@@ -1,0 +1,11 @@
+{
+  "_operacao": "CREATE - POST /api/v1/pets",
+  "_esperado": "HTTP 201 com o pet criado e o id gerado",
+  "nome": "Nino",
+  "especie": "GATO",
+  "raca": "Persa",
+  "pesoKg": 5.30,
+  "dataNascimento": "2023-05-19",
+  "castrado": false,
+  "tutorId": 1
+}

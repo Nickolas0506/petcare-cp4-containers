@@ -1,0 +1,52 @@
+# =============================================================================
+# PetCare - definicao do Container Instance da APLICACAO (documentacao)
+#
+# Registra a configuracao aplicada pelo script 06-subir-aplicacao.ps1.
+# O DB_HOST e o nome DNS publico do container do banco.
+#
+# Para aplicar por aqui em vez do script:
+#   az container create --resource-group rm564105-cp4-rg --file deploy/aci-aplicacao.yaml
+# =============================================================================
+apiVersion: 2021-10-01
+location: mexicocentral
+name: rm564105-app
+type: Microsoft.ContainerInstance/containerGroups
+
+properties:
+  osType: Linux
+  restartPolicy: OnFailure
+
+  imageRegistryCredentials:
+    - server: rm564105acr.azurecr.io
+      username: rm564105acr
+      password: <SENHA_DO_ACR>
+
+  containers:
+    - name: rm564105-app
+      properties:
+        image: rm564105acr.azurecr.io/rm564105-app:latest
+        resources:
+          requests:
+            cpu: 1
+            memoryInGB: 2
+        ports:
+          - port: 8080
+            protocol: TCP
+        environmentVariables:
+          - name: DB_HOST
+            value: rm564105-db.mexicocentral.azurecontainer.io
+          - name: DB_PORT
+            value: "3306"
+          - name: DB_NAME
+            value: petcare
+          - name: DB_USER
+            value: petcare_user
+          - name: DB_PASSWORD
+            secureValue: <SENHA_DO_BANCO>
+
+  ipAddress:
+    type: Public
+    dnsNameLabel: rm564105-app
+    ports:
+      - port: 8080
+        protocol: TCP

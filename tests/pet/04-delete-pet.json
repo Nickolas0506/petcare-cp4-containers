@@ -1,0 +1,6 @@
+{
+  "_operacao": "DELETE - DELETE /api/v1/pets/{id}",
+  "_observacao": "DELETE nao tem corpo.",
+  "_exemplo": "DELETE /api/v1/pets/3",
+  "_esperado": "HTTP 204 sem conteudo; o registro some do SELECT"
+}

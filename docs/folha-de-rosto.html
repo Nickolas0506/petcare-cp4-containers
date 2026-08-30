@@ -1,0 +1,93 @@
+<meta charset="utf-8">
+<title>PetCare — Folha de Rosto</title>
+<style>
+  @page { margin: 18mm; }
+  body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    color: #1c2b30; max-width: 780px; margin: 0 auto; padding: 24px;
+    line-height: 1.5;
+  }
+  .inst { font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: #5b7a72; }
+  h1 { font-size: 21px; margin: 8px 0 4px; }
+  .sub { color: #5b7a72; font-size: 14px; margin-bottom: 26px; }
+  h2 {
+    font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+    color: #12796b; margin: 26px 0 8px; border-bottom: 2px solid #cfe6e1; padding-bottom: 4px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid #e2edea; vertical-align: top; }
+  th { width: 34%; font-weight: 600; color: #35595a; }
+  code { background: #eef5f3; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+  ul { font-size: 14px; padding-left: 20px; }
+  li { margin-bottom: 4px; }
+  .fill { color: #c0392b; font-weight: 600; }
+  footer {
+    margin-top: 34px; padding-top: 12px; border-top: 1px solid #e2edea;
+    font-size: 12px; color: #5b7a72; display: flex; justify-content: space-between;
+  }
+  .noprint {
+    background: #fff8e1; border: 1px solid #f0d98c; border-radius: 8px;
+    padding: 12px 14px; font-size: 13px; margin-bottom: 22px;
+  }
+  @media print { .noprint { display: none; } body { padding: 0; } }
+</style>
+
+<div class="noprint">
+  <strong>Como gerar o PDF:</strong> abra este arquivo no navegador, pressione
+  <strong>Ctrl+P</strong>, escolha <em>Salvar como PDF</em> e nomeie o arquivo como
+  <strong>PetCare_RM564105_container.pdf</strong>. Este aviso não sai na impressão.
+  Substitua antes os campos em <span class="fill">vermelho</span>.
+</div>
+
+<header>
+  <div class="inst">FIAP — Tecnologia em Desenvolvimento de Sistemas</div>
+  <h1>1º Checkpoint 2º Semestre — Imagem e Containers em Nuvem</h1>
+  <div class="sub">DevOps Tools &amp; Cloud Computing · Projeto PetCare (ACR / ACI)</div>
+</header>
+
+<h2>Identificação</h2>
+<table>
+  <tr><th>Projeto</th><td>PetCare — API de clínica veterinária containerizada</td></tr>
+  <tr><th>Aluno</th><td class="fill">&lt;NOME COMPLETO&gt;</td></tr>
+  <tr><th>RM</th><td>RM564105</td></tr>
+  <tr><th>Turma</th><td class="fill">&lt;TURMA&gt;</td></tr>
+  <tr><th>Data de entrega</th><td>31/08/2026</td></tr>
+</table>
+
+<h2>Links da entrega</h2>
+<table>
+  <tr><th>Repositório GitHub</th><td class="fill">https://github.com/&lt;usuario&gt;/&lt;repositorio&gt;</td></tr>
+  <tr><th>Vídeo de demonstração</th><td class="fill">https://youtu.be/&lt;id-do-video&gt;</td></tr>
+  <tr><th>Aplicação publicada (ACI)</th><td>http://rm564105-app.mexicocentral.azurecontainer.io:8080</td></tr>
+</table>
+
+<h2>Solução entregue</h2>
+<table>
+  <tr><th>Aplicação</th><td>Java 21 + Spring Boot 3.3 — API REST com CRUD completo</td></tr>
+  <tr><th>Banco de dados</th><td>MySQL 8 (relacional, em container — não é H2)</td></tr>
+  <tr><th>Tabelas</th><td><code>tb_tutor</code> e <code>tb_pet</code> (relacionamento 1:N por chave estrangeira)</td></tr>
+  <tr><th>Registro das imagens</th><td>Azure Container Registry — rm564105acr.azurecr.io</td></tr>
+  <tr><th>Imagens publicadas</th><td>rm564105-app:latest &nbsp;·&nbsp; rm564105-db:latest</td></tr>
+  <tr><th>Execução</th><td>Dois Azure Container Instances: rm564105-app e rm564105-db</td></tr>
+  <tr><th>Persistência</th><td>Conta de Armazenamento rm564105storage, File Share <code>petcare-dados</code> montado em <code>/var/lib/mysql</code></td></tr>
+  <tr><th>Provisionamento</th><td>100% via Azure CLI — scripts versionados em <code>scripts/</code></td></tr>
+  <tr><th>Build das imagens</th><td>kaniko em container efêmero no ACI (ACR Tasks é bloqueado na assinatura Azure for Students)</td></tr>
+  <tr><th>Segurança</th><td>O container da aplicação roda com o usuário <code>petcare</code> (uid 1001), sem privilégio administrativo. Credenciais injetadas via <code>--secure-environment-variables</code>; nenhuma senha no código-fonte.</td></tr>
+</table>
+
+<h2>Conteúdo do repositório</h2>
+<ul>
+  <li><strong>Código-fonte</strong> da aplicação — <code>app/</code></li>
+  <li><strong>Dockerfiles</strong> da aplicação e do banco — <code>app/Dockerfile</code>, <code>db/Dockerfile</code></li>
+  <li><strong>DDL das tabelas</strong> — <code>db/init/01-ddl.sql</code></li>
+  <li><strong>Scripts Azure CLI</strong> de todos os recursos — <code>scripts/</code></li>
+  <li><strong>YAMLs dos ACIs</strong> — <code>deploy/</code></li>
+  <li><strong>Arquivos JSON</strong> de teste de GET, POST, PUT e DELETE das duas tabelas — <code>tests/</code></li>
+  <li><strong>SELECTs de evidência</strong> do CRUD — <code>db/init/03-consultas-evidencia.sql</code></li>
+  <li><strong>README</strong> com o passo a passo de build, push e deploy</li>
+</ul>
+
+<footer>
+  <span>PetCare — CP4 Imagem e Containers em Nuvem</span>
+  <span>RM564105</span>
+</footer>

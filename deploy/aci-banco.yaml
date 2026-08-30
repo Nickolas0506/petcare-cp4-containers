@@ -1,0 +1,61 @@
+# =============================================================================
+# PetCare - definicao do Container Instance do BANCO (documentacao)
+#
+# Este YAML registra a configuracao aplicada pelo script 05-subir-banco.ps1.
+# Os campos entre < > sao preenchidos na hora do deploy: senha e chave de
+# armazenamento nunca ficam escritas no repositorio.
+#
+# Para aplicar por aqui em vez do script:
+#   az container create --resource-group rm564105-cp4-rg --file deploy/aci-banco.yaml
+# =============================================================================
+apiVersion: 2021-10-01
+location: mexicocentral
+name: rm564105-db
+type: Microsoft.ContainerInstance/containerGroups
+
+properties:
+  osType: Linux
+  restartPolicy: OnFailure
+
+  imageRegistryCredentials:
+    - server: rm564105acr.azurecr.io
+      username: rm564105acr
+      password: <SENHA_DO_ACR>
+
+  containers:
+    - name: rm564105-db
+      properties:
+        image: rm564105acr.azurecr.io/rm564105-db:latest
+        resources:
+          requests:
+            cpu: 1
+            memoryInGB: 2
+        ports:
+          - port: 3306
+            protocol: TCP
+        environmentVariables:
+          - name: MYSQL_DATABASE
+            value: petcare
+          - name: MYSQL_USER
+            value: petcare_user
+          - name: MYSQL_PASSWORD
+            secureValue: <SENHA_DO_BANCO>
+          - name: MYSQL_ROOT_PASSWORD
+            secureValue: <SENHA_ROOT_DO_BANCO>
+        volumeMounts:
+          - name: dados-mysql
+            mountPath: /var/lib/mysql
+
+  volumes:
+    - name: dados-mysql
+      azureFile:
+        shareName: petcare-dados
+        storageAccountName: rm564105storage
+        storageAccountKey: <CHAVE_DO_STORAGE>
+
+  ipAddress:
+    type: Public
+    dnsNameLabel: rm564105-db
+    ports:
+      - port: 3306
+        protocol: TCP

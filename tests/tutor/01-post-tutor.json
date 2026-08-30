@@ -1,0 +1,9 @@
+{
+  "_operacao": "CREATE - POST /api/v1/tutores",
+  "_esperado": "HTTP 201 com o tutor criado e o id gerado",
+  "nomeCompleto": "Marina Chaves Ferrari",
+  "documento": "27604915308",
+  "email": "marina.ferrari@petcare.com.br",
+  "celular": "11974120365",
+  "cidade": "Santo Andre"
+}

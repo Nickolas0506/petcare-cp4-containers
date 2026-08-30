@@ -1,0 +1,25 @@
+# Build
+app/target/
+*.jar
+*.war
+
+# Credenciais - nunca versionar
+.env
+*.env
+!env.example
+secrets/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+
+# Sistema
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log

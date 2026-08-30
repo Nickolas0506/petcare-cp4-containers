@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PetCare — Clínica Veterinária</title>
+<style>
+  :root {
+    --verde: #12796b;
+    --verde-claro: #e6f4f1;
+    --tinta: #1c2b30;
+    --cinza: #667b82;
+    --borda: #d8e3e5;
+    --fundo: #f5f9f9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--fundo); color: var(--tinta);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+  }
+  header {
+    background: var(--verde); color: #fff; padding: 28px 20px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; }
+  header h1 { margin: 0 0 4px; font-size: 26px; letter-spacing: -.2px; }
+  header p { margin: 0; opacity: .9; font-size: 14px; }
+  .selo {
+    display: inline-block; margin-top: 12px; padding: 4px 10px;
+    background: rgba(255,255,255,.18); border-radius: 20px; font-size: 12px;
+  }
+  main { padding: 26px 20px 60px; }
+  .cartoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .cartao { background: #fff; border: 1px solid var(--borda); border-radius: 10px; padding: 16px; }
+  .cartao .num { font-size: 30px; font-weight: 600; color: var(--verde); }
+  .cartao .rot { font-size: 13px; color: var(--cinza); text-transform: uppercase; letter-spacing: .06em; }
+  h2 { font-size: 17px; margin: 26px 0 10px; }
+  .tabela-wrap { overflow-x: auto; background: #fff; border: 1px solid var(--borda); border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 560px; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--borda); }
+  th { background: var(--verde-claro); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: #35595a; }
+  tbody tr:last-child td { border-bottom: none; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 12px; background: var(--verde-claro); color: #16645a; }
+  .vazio { padding: 18px; color: var(--cinza); font-size: 14px; }
+  footer { border-top: 1px solid var(--borda); padding: 18px 20px; font-size: 13px; color: var(--cinza); }
+  code { background: #eef4f4; padding: 1px 6px; border-radius: 4px; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>PetCare — Clínica Veterinária</h1>
+    <p>API de tutores e pets rodando em container na Azure (ACR + ACI)</p>
+    <span class="selo">FIAP · DevOps Tools &amp; Cloud Computing · CP4</span>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="cartoes">
+    <div class="cartao"><div class="num" id="qtdTutores">—</div><div class="rot">Tutores</div></div>
+    <div class="cartao"><div class="num" id="qtdPets">—</div><div class="rot">Pets</div></div>
+    <div class="cartao"><div class="num" id="situacao">—</div><div class="rot">Banco de dados</div></div>
+  </div>
+
+  <h2>Tutores <span style="font-weight:400;color:var(--cinza);font-size:13px">— tabela <code>tb_tutor</code></span></h2>
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>ID</th><th>Nome</th><th>Documento</th><th>E-mail</th><th>Cidade</th><th>Pets</th></tr></thead>
+      <tbody id="corpoTutores"><tr><td colspan="6" class="vazio">Carregando…</td></tr></tbody>
+    </table>
+  </div>
+
+  <h2>Pets <span style="font-weight:400;color:var(--cinza);font-size:13px">— tabela <code>tb_pet</code></span></h2>
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>ID</th><th>Nome</th><th>Espécie</th><th>Raça</th><th>Peso</th><th>Castrado</th><th>Tutor</th></tr></thead>
+      <tbody id="corpoPets"><tr><td colspan="7" class="vazio">Carregando…</td></tr></tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer class="container">
+  Endpoints: <code>/api/v1/tutores</code> · <code>/api/v1/pets</code> · <code>/info</code> · <code>/actuator/health</code>
+</footer>
+
+<script>
+  const esc = t => String(t ?? '—').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  async function carregar() {
+    try {
+      const [tutores, pets] = await Promise.all([
+        fetch('/api/v1/tutores').then(r => r.json()),
+        fetch('/api/v1/pets').then(r => r.json())
+      ]);
+
+      document.getElementById('qtdTutores').textContent = tutores.length;
+      document.getElementById('qtdPets').textContent = pets.length;
+      document.getElementById('situacao').textContent = 'ok';
+
+      const ct = document.getElementById('corpoTutores');
+      ct.innerHTML = tutores.length ? tutores.map(t => `<tr>
+          <td>${t.id}</td><td>${esc(t.nomeCompleto)}</td><td>${esc(t.documento)}</td>
+          <td>${esc(t.email)}</td><td>${esc(t.cidade)}</td>
+          <td><span class="tag">${t.quantidadePets}</span></td></tr>`).join('')
+        : '<tr><td colspan="6" class="vazio">Nenhum tutor cadastrado.</td></tr>';
+
+      const cp = document.getElementById('corpoPets');
+      cp.innerHTML = pets.length ? pets.map(p => `<tr>
+          <td>${p.id}</td><td>${esc(p.nome)}</td><td><span class="tag">${esc(p.especie)}</span></td>
+          <td>${esc(p.raca)}</td><td>${p.pesoKg != null ? p.pesoKg + ' kg' : '—'}</td>
+          <td>${p.castrado ? 'sim' : 'não'}</td><td>${esc(p.tutorNome)}</td></tr>`).join('')
+        : '<tr><td colspan="7" class="vazio">Nenhum pet cadastrado.</td></tr>';
+
+    } catch (e) {
+      document.getElementById('situacao').textContent = 'erro';
+      document.getElementById('corpoTutores').innerHTML =
+        '<tr><td colspan="6" class="vazio">Não foi possível falar com a API.</td></tr>';
+      document.getElementById('corpoPets').innerHTML =
+        '<tr><td colspan="7" class="vazio">Não foi possível falar com a API.</td></tr>';
+    }
+  }
+
+  carregar();
+  setInterval(carregar, 10000);
+</script>
+
+</body>
+</html>
