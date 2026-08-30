@@ -1,0 +1,86 @@
+===============================================================
+  LINKS DA ENTREGA - CP4 Containers em Nuvem
+  Grupo PataCloud - Turma 2TDSR
+  Projeto PetCare - Clinica Veterinaria
+  Entrega: segunda-feira, 31/08/2026 ate as 23:59
+===============================================================
+
+
+1) LINK DO REPOSITORIO NO GITHUB
+---------------------------------------------------------------
+JA ESTA PRONTO:
+
+   https://github.com/Nickolas0506/petcare-cp4-containers
+
+   Repositorio publico. Nao precisa mexer.
+
+
+2) LINK DO VIDEO NO YOUTUBE
+---------------------------------------------------------------
+COLE AQUI:
+
+
+   Como conseguir: depois de gravar, suba o video no YouTube.
+   Na hora de publicar, escolha a opcao "Nao listado".
+   Nao escolha "Privado" - se ficar privado o professor NAO
+   consegue abrir e a entrega vale ZERO por falta de acesso.
+
+   Depois de publicado, clique em "Compartilhar" e copie o link.
+   Ele tem essa cara:  https://youtu.be/AbCdEf12345
+
+
+3) APLICACAO PUBLICADA (ja esta no ar)
+---------------------------------------------------------------
+   Painel ..... http://rm564099-app.brazilsouth.azurecontainer.io:8080/
+   Tutores .... http://rm564099-app.brazilsouth.azurecontainer.io:8080/api/v1/tutores
+   Pets ....... http://rm564099-app.brazilsouth.azurecontainer.io:8080/api/v1/pets
+
+
+===============================================================
+  O LINK DO VIDEO TAMBEM PRECISA ENTRAR NO PDF
+===============================================================
+
+Colar aqui neste arquivo NAO e o suficiente. O link do video tem
+que aparecer dentro do PDF da folha de rosto, que e o arquivo que
+vai ser entregue no Teams.
+
+Quando o video estiver pronto, avise o Nickolas: ele coloca o link
+na folha de rosto e gera o PDF final.
+
+Se precisar fazer sozinho:
+  - abra o arquivo  docs/folha-de-rosto.html  no Bloco de Notas
+  - procure a linha que esta em vermelho com "youtu.be"
+  - troque o endereco de exemplo pelo link de verdade
+  - salve, abra o arquivo no navegador e aperte Ctrl+P
+  - escolha "Salvar como PDF"
+  - nome do arquivo:  PataCloud_container.pdf
+
+
+===============================================================
+  CHECKLIST FINAL
+===============================================================
+
+[ ] Video gravado (720p ou mais, com audio e narracao, 8 a 12 min)
+[ ] O video mostra os recursos da Azure logo no comeco
+[ ] As 4 operacoes do CRUD demonstradas nas 2 tabelas (8 no total)
+[ ] Depois de CADA operacao, o SELECT no banco aparecendo na tela
+[ ] Video publicado no YouTube como "Nao listado"
+[ ] Link do video colado acima
+[ ] Link do video colocado na folha de rosto
+[ ] PDF gerado:  PataCloud_container.pdf
+[ ] Pasta da entrega criada:  PataCloud_RM564099
+[ ] PDF dentro da pasta
+[ ] Enviado no Teams por Natalia Cristina de Souza (a representante)
+
+
+===============================================================
+  DEPOIS DE ENTREGAR
+===============================================================
+
+Os containers ficam gastando credito da Azure enquanto estiverem
+ligados. Depois que a entrega estiver feita, rode:
+
+    .\scripts\99-remover-tudo.ps1
+
+NAO rode antes de gravar o video - isso apaga o banco e nao tem
+como desfazer.
